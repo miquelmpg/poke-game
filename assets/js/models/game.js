@@ -37,6 +37,7 @@ class Game {
                 this.trainer.canThrow = true;
             }
         }, 5000);
+        this.nextPokemonTimer();
     }
 
     start() {
@@ -46,18 +47,8 @@ class Game {
                 this.move();
                 this.draw();
                 this.checkCollisions();
-                if (this.pokemons.length > MAX_POKEMON_GROUND) {
-                    this.pokemons = [];
-                    this.lives.lives -= 1;
-                    this.lives.sprite.hFrameIndex += 2;
-                } 
-                
-                if (this.lives.lives === 0) {
-                    this.pokemon = [];
-                    this.balls = [];
-                    this.lives.sprite.hFrameIndex === 6;
-                    setTimeout(() =>  this.gameOver(), 500);
-                }
+                this.gameFinished();
+                this.addField();
             }, this.fps);
         }
     }
@@ -70,23 +61,6 @@ class Game {
     setUpListeners() {
         addEventListener('keydown', (event) => this.trainer.onKeyPress(event));
         addEventListener('keyup', (event) => this.trainer.onKeyPress(event));
-    }
-
-    setupPokemonGenerate() {
-        setInterval(() => {
-            const randomNumber = Math.floor(Math.random() * 3);
-            switch (randomNumber) {
-                case 0:
-                    this.pokemons.push(new Pokemon(this.ctx));
-                    break;
-                case 1:
-                    this.pokemons.push(new Pokemon(this.ctx), new Pokemon(this.ctx));
-                    break;
-                case 2:
-                    this.pokemons.push(new Pokemon(this.ctx), new Pokemon(this.ctx), new Pokemon(this.ctx));
-                    break;
-            }
-            }, POKEMON_GENERATE_INTERVAL);
     }
 
     clear() {
@@ -137,12 +111,8 @@ class Game {
         for (const pokemon of this.pokemons) {
             if (this.trainer.megaEvolve && this.trainer.collidesWith(pokemon)) {
                 pokemon.isDead = true;
-            }
-        }
-
-        for (const pokemon of this.pokemons) {
-            if (pokemon.y > POKEMON_OUT_DISTANCE) {
-                pokemon.isDead = true;
+                this.addPoint();
+                this.addTypeOne(pokemon);
             }
         }
 
@@ -161,14 +131,14 @@ class Game {
             }
             if (this.trainer.collidesWith(pokemon) && (pokemon.y > POKEMON_OUT_DISTANCE)) {
                 pokemon.isDead = true;
-                this.totalPoints++;
+                this.addPoint();
+                this.addTypeOne(pokemon);
             }
         }
 
         for (const pokemon of this.pokemons) {
             for (const pokeball of this.trainer.pokeballs) {
                 if (pokeball instanceof Pokeball) {
-                    console.log(((pokeball.y + pokeball.h) > pokemon.y));
                     if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
                         pokemon.y += 50;
                         pokeball.isThrown = true;                    
@@ -229,18 +199,26 @@ class Game {
                     if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
+                        this.addPoint();
+                        this.addTypeOne(pokemon);
                     }
                     if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) && (pokeball.y + pokeball.h > pokemon.y + pokemon.h)){
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
+                        this.addPoint();
+                        this.addTypeOne(pokemon);
                     }
                     if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x < pokemon.x + pokemon.w) && (pokeball.x > pokemon.x)) {
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
+                        this.addPoint();
+                        this.addTypeOne(pokemon);
                     }
                     if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) && (pokeball.x < pokemon.x)) {
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
+                        this.addPoint();
+                        this.addTypeOne(pokemon);
                     }
                 }
             }
@@ -302,6 +280,103 @@ class Game {
         const randomNumber = Math.floor(Math.random() * ((this.balls.length - 0)));
         this.balls.splice(randomNumber, 1);
     }
+
+    addPoint() {
+        this.totalPoints++;
+        document.getElementById("number-total-points").innerText = this.totalPoints;
+    }
+
+    addField() {
+        document.getElementById("number-pokemon-field").innerText = this.pokemons.length;
+    }
+
+    addTypeOne(pokemon) {
+        const typeOne = document.getElementById(pokemon.typeOne);
+        // if (typeOne.classList.contains("hidden")) {
+        //     typeOne.classList.remove("hidden");
+        //     typeOne.classList.add("visible");
+        //     typeOne.innerText += 1;
+        // }
+
+        typeOne.innerText += 1;
+        
+        if (pokemon.typeTwo) {
+            document.getElementById(pokemon.typeTwo).innerText += 1;
+        }
+    }
+
+    changeStates() {
+        if (this.pokemons.length > MAX_POKEMON_GROUND) {
+            this.pokemons = [];
+        }
+        if (this.lives.lives === 0) {
+            this.pokemon = [];
+            this.balls = [];
+            this.lives.sprite.hFrameIndex === 6;
+            setTimeout(() =>  this.gameOver(), 500);
+        }
+    }
+
+    setupPokemonGenerate() {
+        this.generatePokemon();
+        this.resetNextPokemonTimer();
+        const generateInterval = setInterval(() => {
+            this.generatePokemon();
+            this.resetNextPokemonTimer();
+            if (this.pokemons.length > MAX_POKEMON_GROUND) {
+                clearInterval(generateInterval);
+                this.changeStates();
+                this.setupPokemonGenerate();
+            }
+        }, POKEMON_GENERATE_INTERVAL);
+    }
+
+    generatePokemon() {
+        const randomNumber = Math.floor(Math.random() * 3);
+        switch (randomNumber) {
+            case 0:
+                this.pokemons.push(new Pokemon(this.ctx));
+                break;
+            case 1:
+                this.pokemons.push(new Pokemon(this.ctx), new Pokemon(this.ctx));
+                break;
+            case 2:
+                this.pokemons.push(new Pokemon(this.ctx), new Pokemon(this.ctx), new Pokemon(this.ctx));
+                break;
+        }
+    }
+
+    changeStates() {
+        this.pokemons = [];
+        this.lives.lives -= 1;
+        this.lives.sprite.hFrameIndex += 2; 
+    }
+
+    gameFinished () {
+        if (this.lives.lives === 0) {
+            this.balls = [];
+            this.lives.sprite.hFrameIndex === 6;
+            this.pokemons = [];
+            this.gameOver();
+        }
+    }
+
+    resetNextPokemonTimer() {
+        this.nextPokemonTime = (POKEMON_GENERATE_INTERVAL / 1000);
+    }
+
+    nextPokemonTimer() {
+        this.resetNextPokemonTimer();
+        setInterval(() => {
+            this.nextPokemonTime--;
+            if (this.nextPokemonTime < 0) {
+                this.nextPokemonTime = (POKEMON_GENERATE_INTERVAL / 1000);
+            }
+            document.getElementById("next-pokemon-timer").innerText =
+                Math.max(0, Math.floor(this.nextPokemonTime));
+        }, 1000);
+    }
+
 
     draw() {
         this.background.draw();

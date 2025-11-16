@@ -3,3 +3,20 @@ canvas {
     display: flex;
     margin: auto;
 }
+
+#canvas-game {
+    display: flex;
+}
+
+#statistics {
+    text-align: center;
+    background-color: red;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}

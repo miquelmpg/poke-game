@@ -14,6 +14,13 @@ class Pokemon {
         this.getPokemon().then(pokemon => {
             this.sprite.src = pokemon.sprites.front_default;
             this.cry = pokemon.cries.latest;
+            this.typeOne = pokemon.types['0'].type.name;
+            if (pokemon.types.length > 1) {
+                this.typeTwo = pokemon.types['1'].type.name;
+            } else {
+                this.typeTwo = "";
+            }
+            // this.shinny = pokemon.sprites.front_shiny;
             // this.appearCry(this.cry);
         });
     }
