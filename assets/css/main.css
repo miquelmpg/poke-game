@@ -1,15 +1,30 @@
+body {
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+}
+
+#canvas-game {
+    display: flex;
+    align-content: space-between;
+}
+
 canvas {
     border: 5px solid black;
     display: flex;
     margin: auto;
 }
 
-#canvas-game {
+#types {
+    width: 100%;
+    align-items: center;
     display: flex;
-}
-
-#statistics {
-    text-align: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100vh;
+    gap: 20px;
     background-color: red;
 }
 
@@ -19,4 +34,124 @@ canvas {
 
 .visible {
     display: block;
+}
+
+.type-image {
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    width: 75px;
+    height: 75px;
+}
+
+.number-format {
+    display: flex;
+    position: absolute;
+    top: 25px;
+    left: 60px;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.background {
+    background-image: url('/assets/images/background/main-background.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.normal {
+    background-image: url('/assets/images/types/normal.png');
+}
+
+.fire {
+    background-image: url('/assets/images/types/fire.png');
+}
+
+.water {
+    background-image: url('/assets/images/types/water.png');
+}
+
+.electric {
+    background-image: url('/assets/images/types/electric.png');
+}
+
+.grass {
+    background-image: url('/assets/images/types/grass.png');
+}
+
+.ice {
+    background-image: url('/assets/images/types/ice.png');
+}
+
+.fighting {
+    background-image: url('/assets/images/types/fighting.png');
+}
+
+.poison {
+    background-image: url('/assets/images/types/poison.png');
+}
+
+.ground {
+    background-image: url('/assets/images/types/ground.png');
+}
+
+.flying {
+    background-image: url('/assets/images/types/flying.png');
+}
+
+.psychic {
+    background-image: url('/assets/images/types/psychic.png');
+}
+
+.bug {
+    background-image: url('/assets/images/types/bug.png');
+}
+
+.rock {
+    background-image: url('/assets/images/types/rock.png');
+}
+
+.ghost {
+    background-image: url('/assets/images/types/ghost.png');
+}
+
+.dragon {
+    background-image: url('/assets/images/types/dragon.png');
+}
+
+.dark {
+    background-image: url('/assets/images/types/dark.png');
+}
+
+.steel {
+    background-image: url('/assets/images/types/steel.png');
+}
+
+.fairy {
+    background-image: url('/assets/images/types/fairy.png');
+}
+
+#statistics {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    gap: 50px;
+}
+
+.container-format {
+    width: 150px;
+    height: 150px;
+    align-content: center;
+    background-color: red;
+    border: 5px solid black;
+    border-radius: 50%;
+
 }

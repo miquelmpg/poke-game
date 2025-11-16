@@ -12,6 +12,7 @@ class Game {
         this.fenceLeft = new Wildcard(this.ctx, 0, 568, 225, 25);
         this.fenceRight = new Wildcard(this.ctx, 405, 568, 195, 25);
         this.topTrees = new Wildcard(this.ctx, 100, 25, 400, 50);
+        this.easterEgg = new Wildcard(this.ctx, 200, 600, 20, 20);
 
         this.trainer = new PokeTrainer(this.ctx, 275, 600);
 
@@ -157,7 +158,6 @@ class Game {
                     }
                 }
                 if (pokeball instanceof Superball) {
-                    console.log(((pokeball.y + pokeball.h) > pokemon.y));
                     if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
                         pokemon.y += 100;
                         pokeball.isThrown = true;                    
@@ -176,7 +176,6 @@ class Game {
                     }
                 }
                 if (pokeball instanceof Ultraball) {
-                    console.log(((pokeball.y + pokeball.h) > pokemon.y));
                     if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
                         pokemon.y += 150;
                         pokeball.isThrown = true;                    
@@ -195,7 +194,6 @@ class Game {
                     }
                 }
                 if (pokeball instanceof Masterball) {
-                    console.log(((pokeball.y + pokeball.h) > pokemon.y));
                     if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
@@ -254,6 +252,19 @@ class Game {
         if (this.trainer.collidesWith(this.topTrees)) {
             this.trainer.y = this.topTrees.y + this.topTrees.h;
         }
+
+        setTimeout(() => {
+            const isShown = false;
+            const egg = document.querySelector(".egg")
+            if (this.trainer.collidesWith(this.easterEgg) && this.trainer.sprite.hFrameIndex === 3 && egg.classList.contains("hidden") && (!isShown)) {
+                egg.classList.remove("hidden");
+                egg.classList.add("visible");
+                isShown = true;
+            } else if (!this.trainer.collidesWith(this.easterEgg) && !isShown) {
+                egg.classList.add("hidden");
+                egg.classList.remove("visible");
+                isShown = false;
+            }}, 5000);
     }
 
     gameOver() {
@@ -291,17 +302,24 @@ class Game {
     }
 
     addTypeOne(pokemon) {
-        const typeOne = document.getElementById(pokemon.typeOne);
-        // if (typeOne.classList.contains("hidden")) {
-        //     typeOne.classList.remove("hidden");
-        //     typeOne.classList.add("visible");
-        //     typeOne.innerText += 1;
-        // }
-
-        typeOne.innerText += 1;
-        
+        let typeTwoClass = null;
+        const typeOneId = document.getElementById(pokemon.typeOne);
+        const typeOneClass = document.querySelector(`.${pokemon.typeOne}`);
+        const typeTwoId = document.getElementById(pokemon.typeTwo);
+        if (typeOneClass.classList.contains("hidden")) {
+            typeOneClass.classList.remove("hidden");
+            typeOneClass.classList.add("visible");
+            typeOneId.innerText = parseInt(typeOneId.innerText) + 1;
+        } else {
+            typeOneId.innerText = parseInt(typeOneId.innerText) + 1;
+        }
         if (pokemon.typeTwo) {
-            document.getElementById(pokemon.typeTwo).innerText += 1;
+            typeTwoClass = document.querySelector(`.${pokemon.typeTwo}`);
+        } 
+        if (typeTwoClass && typeTwoClass.classList.contains("hidden")) {
+            typeTwoClass.classList.remove("hidden");
+            typeTwoClass.classList.add("visible");
+            typeTwoId.innerText = parseInt(typeTwoId.innerText) + 1;
         }
     }
 
@@ -357,7 +375,7 @@ class Game {
             this.balls = [];
             this.lives.sprite.hFrameIndex === 6;
             this.pokemons = [];
-            this.gameOver();
+            setTimeout(() => this.gameOver(), 500);
         }
     }
 
@@ -383,6 +401,7 @@ class Game {
         this.fenceLeft.draw();
         this.fenceRight.draw();
         this.topTrees.draw();
+        this.easterEgg.draw();
         this.balls.forEach((ball) => ball.staticDraw());
         this.pokemons.forEach((pokemon) => pokemon.draw());
         this.trainer.draw();

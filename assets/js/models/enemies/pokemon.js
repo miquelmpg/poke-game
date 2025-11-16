@@ -18,7 +18,7 @@ class Pokemon {
             if (pokemon.types.length > 1) {
                 this.typeTwo = pokemon.types['1'].type.name;
             } else {
-                this.typeTwo = "";
+                this.typeTwo = null;
             }
             // this.shinny = pokemon.sprites.front_shiny;
             // this.appearCry(this.cry);
