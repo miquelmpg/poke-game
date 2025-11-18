@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
-    <div id="canvas-game">
+    <div id="canvas-game" class="background">
         <div id="types">
             <div class="normal hidden type-image">
                 <div id="normal" class="number-format">0</div>
@@ -65,19 +65,25 @@
             </div>
             <div id="easterEgg" class="egg hidden">Miquel Piña Grau</div>
         </div>
-        <canvas id="main-canvas"></canvas>
+        <div id="main">
+            <div class="main-menu main-screen">
+                <div class="start-boy container-format"></div>
+                <div class="start-girl container-format"></div>
+            </div>
+        </div>
+        <canvas id="main-canvas" class="main-canvas hidden"></canvas>
+        <div id="gameOver" class="main-menu game-over hidden"></div>
         <div id="statistics">
-            <div class="container-format">
-                Pokemon
-                <div id="number-pokemon-field">0</div>
+            <div class="pokemon pokeball container-format hidden">In
+                <div id="number-pokemon-field" class="color-black margin-top">0</div>
             </div>
-            <div class="container-format">
-                Total Points
-                <div id="number-total-points">0</div>
+            <div class="pokemon-out pokeball container-format hidden">
+                Out
+                <div id="number-total-points" class="color-black margin-top">0</div>
             </div>
-            <div class="container-format">
-                Next Pokemon
-                <div id="next-pokemon-timer">0</div>
+            <div class="time-remaining pokeball container-format hidden">
+                Time
+                <div id="next-pokemon-timer" class="color-black margin-top">0</div>
             </div>
         </div>
     </div>

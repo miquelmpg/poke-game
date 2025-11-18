@@ -5,9 +5,22 @@ body {
     font-size: 1.5rem;
 }
 
+.egg, .color-black {
+    color: black;
+}
+
 #canvas-game {
     display: flex;
     align-content: space-between;
+    align-items: center;
+}
+
+.main-menu {
+    border: 5px solid black;
+    width: 600px;
+    height: 750px;
+    display: flex;
+    margin: auto;
 }
 
 canvas {
@@ -23,9 +36,8 @@ canvas {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    height: 100vh;
+    height: 75vh;
     gap: 20px;
-    background-color: red;
 }
 
 .hidden {
@@ -57,10 +69,48 @@ canvas {
     border-radius: 50%;
 }
 
+#statistics {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    gap: 50px;
+}
+
+.container-format {
+    width: 150px;
+    height: 150px;
+    align-content: space-around;
+    border: 5px solid black;
+    border-radius: 50%;
+}
+
+.margin-top {
+    margin-top: 60px;
+}
+
 .background {
-    background-image: url('/assets/images/background/main-background.jpg');
+    background-image: url('/assets/images/background/background.png');
+    background-position: bottom;
+    background-size: cover;
+    height: 100vh;
+}
+
+.main-screen {
+    background-image: url('/assets/images/background/main-screen.jpg');
+    background-position: top;
+    background-size: cover;
+}
+
+.game-over {
+    background-image: url('/assets/images/background/gameOver.png');
     background-position: center;
     background-size: cover;
+    width: 600px;
+    height: 750px;
 }
 
 .normal {
@@ -135,23 +185,8 @@ canvas {
     background-image: url('/assets/images/types/fairy.png');
 }
 
-#statistics {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    text-align: center;
-    margin: auto;
-    width: 100%;
-    gap: 50px;
-}
-
-.container-format {
-    width: 150px;
-    height: 150px;
-    align-content: center;
-    background-color: red;
-    border: 5px solid black;
-    border-radius: 50%;
-
+.pokeball {
+    background-image: url('/assets/images/background/pokeball.png');
+    background-position: center;
+    background-size: cover;
 }

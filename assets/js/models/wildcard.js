@@ -9,7 +9,7 @@ class Wildcard {
     }
 
     draw() {
-        this.ctx.fillStyle = "red";
+        this.ctx.fillStyle = "transparent";
         this.ctx.fillRect(
             this.x, 
             this.y,

@@ -7,6 +7,7 @@ class Game {
 
         this.fps = FPS;
         this.drawIntervalId = undefined;
+        this.pokemonTimer = undefined;
 
         this.background = new Background(this.ctx, BACKGROUND_MAIN);
         this.fenceLeft = new Wildcard(this.ctx, 0, 568, 225, 25);
@@ -91,6 +92,14 @@ class Game {
     }
 
     checkCollisions() {
+
+        for (const pokemon of this.pokemons) {
+            if (pokemon.y > POKEMON_OUT_DISTANCE) {
+                this.addPoint();
+                pokemon.isDead = true;
+            }
+        }
+
         for (const ball of this.balls) {
             if (this.trainer.collidesWith(ball)) {
                 ball.isTaken = true;
@@ -253,22 +262,37 @@ class Game {
             this.trainer.y = this.topTrees.y + this.topTrees.h;
         }
 
-        setTimeout(() => {
-            const isShown = false;
-            const egg = document.querySelector(".egg")
+        let isShown = false;
+        
+            const egg = document.querySelector(".egg");
             if (this.trainer.collidesWith(this.easterEgg) && this.trainer.sprite.hFrameIndex === 3 && egg.classList.contains("hidden") && (!isShown)) {
-                egg.classList.remove("hidden");
+                setTimeout(() => {egg.classList.remove("hidden");
                 egg.classList.add("visible");
                 isShown = true;
+                }, 2000);
             } else if (!this.trainer.collidesWith(this.easterEgg) && !isShown) {
                 egg.classList.add("hidden");
                 egg.classList.remove("visible");
                 isShown = false;
-            }}, 5000);
+            }
     }
 
     gameOver() {
         this.stop();
+        this.removeGameOverContainers();
+    }
+
+    removeGameOverContainers() {
+        const canvas = document.getElementById("main-canvas");
+        const gameOver = document.getElementById("gameOver");
+        const types = document.getElementById("types");
+        const statistics = document.getElementById("statistics");
+        canvas.classList.remove("visible");
+        canvas.classList.add("hidden");
+        types.remove();
+        statistics.remove();
+        gameOver.classList.remove("hidden");
+        gameOver.classList.add("visible");
     }
 
     randomBall() {
@@ -323,18 +347,6 @@ class Game {
         }
     }
 
-    changeStates() {
-        if (this.pokemons.length > MAX_POKEMON_GROUND) {
-            this.pokemons = [];
-        }
-        if (this.lives.lives === 0) {
-            this.pokemon = [];
-            this.balls = [];
-            this.lives.sprite.hFrameIndex === 6;
-            setTimeout(() =>  this.gameOver(), 500);
-        }
-    }
-
     setupPokemonGenerate() {
         this.generatePokemon();
         this.resetNextPokemonTimer();
@@ -367,14 +379,14 @@ class Game {
     changeStates() {
         this.pokemons = [];
         this.lives.lives -= 1;
-        this.lives.sprite.hFrameIndex += 2; 
+        this.lives.sprite.hFrameIndex += 2;
     }
 
     gameFinished () {
         if (this.lives.lives === 0) {
             this.balls = [];
-            this.lives.sprite.hFrameIndex === 6;
             this.pokemons = [];
+            clearInterval(this.pokemonTimer);
             setTimeout(() => this.gameOver(), 500);
         }
     }
@@ -385,7 +397,7 @@ class Game {
 
     nextPokemonTimer() {
         this.resetNextPokemonTimer();
-        setInterval(() => {
+        this.pokemonTimer = setInterval(() => {
             this.nextPokemonTime--;
             if (this.nextPokemonTime < 0) {
                 this.nextPokemonTime = (POKEMON_GENERATE_INTERVAL / 1000);
