@@ -92,11 +92,11 @@ class Game {
     }
 
     checkCollisions() {
-
         for (const pokemon of this.pokemons) {
             if (pokemon.y > POKEMON_OUT_DISTANCE) {
                 this.addPoint();
                 pokemon.isDead = true;
+                this.addTypeOne(pokemon);
             }
         }
 
@@ -301,13 +301,13 @@ class Game {
         const yRandomNumberGround = Math.floor(Math.random() * (CANVAS_HEIGHT - 250) + 50);
         
         if (randomNumber < 0.25) {
-        //     this.balls.push(new Masterball(this.ctx, xRandomNumberGround, yRandomNumberGround));
-        // } else if (randomNumber > 0.25 && randomNumber < 0.4) {
-        //     this.balls.push(new Ultraball(this.ctx, xRandomNumberGround, yRandomNumberGround));
-        // } else if (randomNumber > 0.4 && randomNumber < 0.85) {
-        //     this.balls.push(new Superball(this.ctx, xRandomNumberGround, yRandomNumberGround));
-        // } else {
-            this.balls.push(new MegaStone(this.ctx, xRandomNumberGround, yRandomNumberGround))
+            this.balls.push(new Masterball(this.ctx, xRandomNumberGround, yRandomNumberGround));
+        } else if (randomNumber > 0.25 && randomNumber < 0.4) {
+            this.balls.push(new Ultraball(this.ctx, xRandomNumberGround, yRandomNumberGround));
+        } else if (randomNumber > 0.4 && randomNumber < 0.85) {
+            this.balls.push(new Superball(this.ctx, xRandomNumberGround, yRandomNumberGround));
+        } else {
+            this.balls.push(new MegaStone(this.ctx, xRandomNumberGround, yRandomNumberGround));
         }
     }
 
@@ -379,7 +379,7 @@ class Game {
     changeStates() {
         this.pokemons = [];
         this.lives.lives -= 1;
-        this.lives.sprite.hFrameIndex += 2;
+        this.lives.sprite.hFrameIndex += 1;
     }
 
     gameFinished () {
@@ -406,7 +406,6 @@ class Game {
                 Math.max(0, Math.floor(this.nextPokemonTime));
         }, 1000);
     }
-
 
     draw() {
         this.background.draw();

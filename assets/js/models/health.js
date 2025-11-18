@@ -6,7 +6,7 @@ class Health {
         this.w = w;
         this.h = h;
 
-        this.lives = 3;
+        this.lives = 5;
 
         this.sprite = new Image();
         this.sprite.src = '/assets/images/sprites/health.png';
