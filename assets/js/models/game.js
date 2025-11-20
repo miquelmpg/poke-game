@@ -186,6 +186,7 @@ class Game {
 
         for (const pokemon of this.pokemons) {
             if (this.trainer.megaEvolve && this.trainer.collidesWith(pokemon)) {
+                this.trainer.canThrow = false;
                 pokemon.isDead = true;
                 this.addPoint();
                 this.addTypeOne(pokemon);
@@ -405,11 +406,11 @@ class Game {
         }
         if (pokemon.typeTwo) {
             typeTwoClass = document.querySelector(`.${pokemon.typeTwo}`);
-        } 
-        if (typeTwoClass && typeTwoClass.classList.contains("hidden")) {
-            typeTwoClass.classList.remove("hidden");
-            typeTwoClass.classList.add("visible");
-            typeTwoId.innerText = parseInt(typeTwoId.innerText) + 1;
+            if (typeTwoClass && typeTwoClass.classList.contains("hidden")) {
+                typeTwoClass.classList.remove("hidden");
+                typeTwoClass.classList.add("visible");
+            }
+            typeTwoId.innerText = Number(typeTwoId.innerText) + 1;
         }
     }
 
