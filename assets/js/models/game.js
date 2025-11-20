@@ -93,9 +93,75 @@ class Game {
 
     checkCollisions() {
         for (const pokemon of this.pokemons) {
+            if (this.trainer.collidesWith(pokemon) && 
+                !this.trainer.isInThouch && 
+                ((pokemon.typeOne === "fire" || pokemon.typeOne === "poison" || pokemon.typeOne === "dragon") || 
+                (pokemon.typeTwo === "fire" || pokemon.typeTwo === "poison" || pokemon.typeTwo === "dragon")) && 
+                !pokemon.hasHit) {
+                    this.lives.lives -= 1;
+                    this.lives.sprite.hFrameIndex += 1;
+                    pokemon.hasHit = true;
+            } else {
+                this.trainer.isInThouch = false;
+            }
+            if (this.trainer.collidesWith(pokemon) && 
+                !this.trainer.isInThouch && 
+                ((pokemon.typeOne === "water" || pokemon.typeOne === "ice" || pokemon.typeOne === "ground") || 
+                (pokemon.typeTwo === "water" || pokemon.typeTwo === "ice" || pokemon.typeTwo === "ground")) && 
+                !pokemon.hasHit) {
+                if (this.trainer.vx > 0) {
+                    this.trainer.vx = this.trainer.vx += 10;
+                    pokemon.hasHit = true;
+                } else if (this.trainer.vx < 0) {
+                    this.trainer.vx = this.trainer.vx -= 10;
+                    pokemon.hasHit = true;
+                } else if (this.trainer.vy > 0) {
+                    this.trainer.vy = this.trainer.vy += 10;
+                    pokemon.hasHit = true;
+                } else if (this.trainer.vy < 0) {
+                    this.trainer.vy = this.trainer.vy -= 10;
+                    pokemon.hasHit = true;
+                }
+            } else {
+                this.trainer.isInThouch = false;
+            }
+            if (this.trainer.collidesWith(pokemon) && 
+                !this.trainer.isInThouch && 
+                ((pokemon.typeOne === "grass" || pokemon.typeOne === "normal" || pokemon.typeOne === "fairy") || 
+                (pokemon.typeTwo === "grass" || pokemon.typeTwo === "normal" || pokemon.typeTwo === "fairy")) && 
+                !pokemon.hasHit) {
+                if (this.lives.lives === 5) {
+                    this.lives.lives += 0;
+                } else {
+                    this.lives.lives += 1;
+                    this.lives.sprite.hFrameIndex -= 1;
+                    this.trainer.isInThouch = false;
+                    pokemon.hasHit = true;
+                }
+            }
+            if (this.trainer.collidesWith(pokemon) && 
+                !this.trainer.isInThouch && 
+                ((pokemon.typeOne === "electric" || pokemon.typeOne === "dark" || pokemon.typeOne === "ghost") || 
+                (pokemon.typeTwo === "electric" || pokemon.typeTwo === "dark" || pokemon.typeTwo === "ghost")) && 
+                !pokemon.hasHit) {
+                this.trainer.vx = 0;
+                this.trainer.vy = 0;
+            }
+            if (this.trainer.collidesWith(pokemon) && 
+                !this.trainer.isInThouch && 
+                ((pokemon.typeOne === "psychic" || pokemon.typeOne === "fighting" || pokemon.typeOne === "flying") || 
+                (pokemon.typeTwo === "psychic" || pokemon.typeTwo === "fighting" || pokemon.typeTwo === "flying")) && 
+                !pokemon.hasHit) {
+                POKEBALL_SPEED = POKEBALL_SPEED * -1;
+                setTimeout(() => POKEBALL_SPEED = POKEBALL_SPEED * -1, 5000);
+                pokemon.hasHit = true;
+            }
+        }
+
+        for (const pokemon of this.pokemons) {
             if (pokemon.y > POKEMON_OUT_DISTANCE) {
-                this.addPoint();
                 pokemon.isDead = true;
+                this.addPoint();
                 this.addTypeOne(pokemon);
             }
         }
@@ -139,11 +205,11 @@ class Game {
             if (this.trainer.collidesWith(pokemon) && this.trainer.y < pokemon.y) {
                 pokemon.y = pokemon.y - 1;
             }
-            if (this.trainer.collidesWith(pokemon) && (pokemon.y > POKEMON_OUT_DISTANCE)) {
-                pokemon.isDead = true;
-                this.addPoint();
-                this.addTypeOne(pokemon);
-            }
+            // if (this.trainer.collidesWith(pokemon) && (pokemon.y > POKEMON_OUT_DISTANCE)) {
+            //     pokemon.isDead = true;
+            //     this.addPoint();
+            //     this.addTypeOne(pokemon);
+            // }
         }
 
         for (const pokemon of this.pokemons) {
@@ -292,7 +358,7 @@ class Game {
         types.remove();
         statistics.remove();
         gameOver.classList.remove("hidden");
-        gameOver.classList.add("visible");
+        gameOver.classList.add("display-column");
     }
 
     randomBall() {

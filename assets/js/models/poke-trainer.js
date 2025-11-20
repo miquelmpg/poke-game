@@ -30,6 +30,7 @@ class PokeTrainer {
         this.pokeballs = [];
         this.kindOfBall = 0;
         this.megaEvolve = false;
+        this.isInThouch = false;
     }
 
     onKeyPress(event) {
@@ -76,44 +77,44 @@ class PokeTrainer {
                     case 0:
                     if (this.canThrow && this.sprite.hFrameIndex === 0) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Pokeball(this.ctx, this.x + this.w - 50, this.y + 45, 0, 3));
+                    this.pokeballs.push(new Pokeball(this.ctx, this.x + this.w - 50, this.y + 45, 0, POKEBALL_SPEED));
                     setTimeout(() => this.canThrow = true, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 1) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Pokeball(this.ctx, this.x, this.y + 10, -3, 0));
+                    this.pokeballs.push(new Pokeball(this.ctx, this.x, this.y + 10, -POKEBALL_SPEED, 0));
                     setTimeout(() => this.canThrow = true, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 2) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Pokeball(this.ctx, this.x + this.w, this.y + 10, 3, 0));
+                    this.pokeballs.push(new Pokeball(this.ctx, this.x + this.w, this.y + 10, POKEBALL_SPEED, 0));
                     setTimeout(() => this.canThrow = true, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 3) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Pokeball(this.ctx, this.x + this.w - 50, this.y, 0, -3));
+                    this.pokeballs.push(new Pokeball(this.ctx, this.x + this.w - 50, this.y, 0, -POKEBALL_SPEED));
                     setTimeout(() => this.canThrow = true, TRAINER_POKEBALL_RELOAD);
                 } 
                 break;
                     case 1:
                     if (this.canThrow && this.sprite.hFrameIndex === 0) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Superball(this.ctx, this.x + this.w - 50, this.y + 45, 0, 3));
+                    this.pokeballs.push(new Superball(this.ctx, this.x + this.w - 50, this.y + 45, 0, POKEBALL_SPEED));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 1) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Superball(this.ctx, this.x, this.y + 10, -3, 0));
+                    this.pokeballs.push(new Superball(this.ctx, this.x, this.y + 10, -POKEBALL_SPEED, 0));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 2) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Superball(this.ctx, this.x + this.w, this.y + 10, 3, 0));
+                    this.pokeballs.push(new Superball(this.ctx, this.x + this.w, this.y + 10, POKEBALL_SPEED, 0));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 3) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Superball(this.ctx, this.x + this.w - 50, this.y, 0, -3));
+                    this.pokeballs.push(new Superball(this.ctx, this.x + this.w - 50, this.y, 0, -POKEBALL_SPEED));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
@@ -122,25 +123,25 @@ class PokeTrainer {
                     case 2:
                     if (this.canThrow && this.sprite.hFrameIndex === 0) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Ultraball(this.ctx, this.x + this.w - 50, this.y + 45, 0, 3));
+                    this.pokeballs.push(new Ultraball(this.ctx, this.x + this.w - 50, this.y + 45, 0, POKEBALL_SPEED));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 1) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Ultraball(this.ctx, this.x, this.y + 10, -3, 0));
+                    this.pokeballs.push(new Ultraball(this.ctx, this.x, this.y + 10, -POKEBALL_SPEED, 0));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 2) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Ultraball(this.ctx, this.x + this.w, this.y + 10, 3, 0));
+                    this.pokeballs.push(new Ultraball(this.ctx, this.x + this.w, this.y + 10, POKEBALL_SPEED, 0));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 3) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Ultraball(this.ctx, this.x + this.w - 50, this.y, 0, -3));
+                    this.pokeballs.push(new Ultraball(this.ctx, this.x + this.w - 50, this.y, 0, -POKEBALL_SPEED));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
@@ -149,25 +150,25 @@ class PokeTrainer {
                     case 3:
                     if (this.canThrow && this.sprite.hFrameIndex === 0) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Masterball(this.ctx, this.x + this.w - 50, this.y + 45, 0, 3));
+                    this.pokeballs.push(new Masterball(this.ctx, this.x + this.w - 50, this.y + 45, 0, POKEBALL_SPEED));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 1) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Masterball(this.ctx, this.x, this.y + 10, -3, 0));
+                    this.pokeballs.push(new Masterball(this.ctx, this.x, this.y + 10, -POKEBALL_SPEED, 0));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 2) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Masterball(this.ctx, this.x + this.w, this.y + 10, 3, 0));
+                    this.pokeballs.push(new Masterball(this.ctx, this.x + this.w, this.y + 10, POKEBALL_SPEED, 0));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
                 } else if (this.canThrow && this.sprite.hFrameIndex === 3) {
                     this.canThrow = false;
-                    this.pokeballs.push(new Masterball(this.ctx, this.x + this.w - 50, this.y, 0, -3));
+                    this.pokeballs.push(new Masterball(this.ctx, this.x + this.w - 50, this.y, 0, -POKEBALL_SPEED));
                     setTimeout(() => {
                         this.canThrow = true
                         this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);

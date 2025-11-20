@@ -75,8 +75,22 @@
                 <div class="score main-container-format"></div>
             </div>
         </div>
+        <div id="score" class="hidden">
+            <div class="main-menu main-screen display-flex-column">
+                <div class="title-score"></div>
+                <ol class="score-list score-box display-flex-column">
+                </ol>
+                <div class="score-red main-container-format"></div>
+            </div>
+        </div>
         <canvas id="main-canvas" class="main-canvas hidden"></canvas>
-        <div id="gameOver" class="main-menu game-over hidden"></div>
+        <div id="gameOver" class="main-menu hidden">
+            <div class="game-over"></div>
+                <div class="end-box">Write your name and press the menu button to save your score
+                    <input type="text" placeholder="Enter your name" maxlength="10" class="score-name">
+                </div>
+            <div class="menu-green main-container-format"></div>
+        </div>
         <div id="statistics">
             <div class="pokemon pokeball container-format hidden">In
                 <div id="number-pokemon-field" class="color-black margin-top">0</div>
@@ -110,6 +124,7 @@
     <script src="/assets/js/models/background.js"></script>
     <script src="/assets/js/models/game.js"></script>
 
+    <script src="/assets/js/storage/storage.js"></script>
     <script src="/assets/js/index.js"></script>
 </body>
 </html>

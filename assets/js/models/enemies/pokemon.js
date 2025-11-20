@@ -10,6 +10,7 @@ class Pokemon {
         this.cry = "";
         this.sprite.isReady = true;
         this.isDead = false;
+        this.hasHit = false;
 
         this.getPokemon().then(pokemon => {
             this.sprite.src = pokemon.sprites.front_default;
