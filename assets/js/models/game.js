@@ -17,9 +17,7 @@ class Game {
 
         this.trainer = new PokeTrainer(this.ctx, 275, 600);
 
-        this.pokemon = new Pokemon(this.ctx);
         this.pokemons = [];
-        this.pokemons.push(this.pokemon);
 
         this.balls = [];
 
@@ -412,6 +410,10 @@ class Game {
             }
             typeTwoId.innerText = Number(typeTwoId.innerText) + 1;
         }
+        const containerTypes = document.getElementById('types');
+        const types = Array.from(containerTypes.children);
+        types.sort((a, b) => b.textContent.localeCompare(a.textContent));
+        types.forEach(type => containerTypes.appendChild(type));
     }
 
     setupPokemonGenerate() {
