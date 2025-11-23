@@ -3,6 +3,12 @@ body {
     margin: 0;
     color: white;
     font-size: 1.5rem;
+    font-family: "PokemonFont";
+    letter-spacing: 5px;
+}
+
+ol {
+    margin-bottom: 45px;
 }
 
 li {
@@ -42,6 +48,7 @@ input {
     border: 5px solid black;
     text-transform: uppercase;
     text-align: center;
+    margin-top: 15px;
 }
 
 .egg, .color-black, li, .end-box {
@@ -107,8 +114,8 @@ canvas {
     justify-content: center;
     align-items: center;
     background-color: black;
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
 }
 
@@ -126,7 +133,6 @@ canvas {
 .container-format {
     width: 150px;
     height: 150px;
-    align-content: space-around;
     border: 5px solid black;
     border-radius: 50%;
 }
@@ -140,7 +146,7 @@ canvas {
 }
 
 .margin-top {
-    margin-top: 60px;
+    margin-top: 15px;
 }
 
 .display-flex-column {
@@ -168,7 +174,7 @@ canvas {
 
 .end-box {
     height: 25%;
-    width: 65%;
+    width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -189,7 +195,7 @@ canvas {
 
 .score {
     height: 40%;
-    background-image: url('/assets/images/sprites/score.png');
+    background-image: url('/assets/images/icons/score.png');
     background-position: center;
     background-size: cover;
     background-size: 100px;
@@ -199,7 +205,7 @@ canvas {
 
 .score-red {
     height: 50%;
-    background-image: url('/assets/images/sprites/score-red.png');
+    background-image: url('/assets/images/icons/score-red.png');
     background-position: center;
     background-size: cover;
     background-size: 100px;
@@ -208,7 +214,7 @@ canvas {
 }
 
 .menu-green {
-    background-image: url('/assets/images/sprites/menu.png');
+    background-image: url('/assets/images/icons/menu.png');
     background-position: center;
     background-size: cover;
     background-size: 100px;
@@ -224,13 +230,13 @@ canvas {
 }
 
 .boy {
-    background-image: url('/assets/images/sprites/male.png');
+    background-image: url('/assets/images/icons/male.png');
     background-position: center;
     background-size: cover;
 }
 
 .girl {
-    background-image: url('/assets/images/sprites/female.png');
+    background-image: url('/assets/images/icons/female.png');
     background-position: center;
     background-size: cover;
 }

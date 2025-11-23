@@ -1,13 +1,19 @@
-class Pokemon {
-    constructor(ctx) {
+class Pokemon extends Collisionable {
+
+    static random(ctx) {
+        return new Pokemon(ctx, Math.floor(Math.random() * ((CANVAS_WIDTH - 100))), Math.floor(Math.random() * (CANVAS_HEIGHT - 350) + 50));
+    }
+
+    constructor(ctx, x, y) {
+        super();
         this.ctx = ctx;
-        this.x = Math.floor(Math.random() * ((CANVAS_WIDTH - 100)));
-        this.y = Math.floor(Math.random() * (CANVAS_HEIGHT - 350) + 50);
+        
+        this.x = x;
+        this.y = y;
         this.w = 100;
         this.h = 100;
 
         this.sprite = new Image();
-        this.cry = "";
         this.sprite.isReady = true;
         this.isDead = false;
         this.hasHit = false;
@@ -21,8 +27,6 @@ class Pokemon {
             } else {
                 this.typeTwo = null;
             }
-            // this.shinny = pokemon.sprites.front_shiny;
-            // this.appearCry(this.cry);
         });
     }
 
@@ -65,19 +69,5 @@ class Pokemon {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.getRandomNumber()}`);
         const pokemon = await response.json();
         return pokemon;
-    }
-
-    appearCry(song) {
-        const cry = new Audio(song);
-        cry.play();
-    }
-
-    collidesWith(element) {
-        return (
-            this.x < element.x + element.w &&
-            this.x + this.w > element.x &&
-            this.y < element.y + element.h &&
-            this.y + this.h > element.y
-        );
     }
 }
