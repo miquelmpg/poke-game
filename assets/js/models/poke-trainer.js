@@ -92,25 +92,29 @@ class PokeTrainer extends Collisionable {
     }
 
     pokeballThrown(SRC) {
-        if (this.canThrow && this.sprite.hFrameIndex === 0) {
+        if (this.canThrow &&
+            this.sprite.hFrameIndex === 0) {
             this.canThrow = false;
             this.pokeballs.push(Pokeball.pokeball(this.ctx, this.x + this.w - 50, this.y + 45, 0, POKEBALL_SPEED, SRC, ''));
             setTimeout(() => {
                 this.canThrow = true
                 this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
-        } else if (this.canThrow && this.sprite.hFrameIndex === 1) {
+        } else if (this.canThrow &&
+            this.sprite.hFrameIndex === 1) {
             this.canThrow = false;
             this.pokeballs.push(Pokeball.pokeball(this.ctx, this.x, this.y + 10, -POKEBALL_SPEED, 0, SRC, ''));
             setTimeout(() => {
                 this.canThrow = true
                 this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
-        } else if (this.canThrow && this.sprite.hFrameIndex === 2) {
+        } else if (this.canThrow &&
+            this.sprite.hFrameIndex === 2) {
             this.canThrow = false;
             this.pokeballs.push(Pokeball.pokeball(this.ctx, this.x + this.w, this.y + 10, POKEBALL_SPEED, 0, SRC, ''));
             setTimeout(() => {
                 this.canThrow = true
                 this.kindOfBall = 0}, TRAINER_POKEBALL_RELOAD);
-        } else if (this.canThrow && this.sprite.hFrameIndex === 3) {
+        } else if (this.canThrow &&
+            this.sprite.hFrameIndex === 3) {
             this.canThrow = false;
             this.pokeballs.push(Pokeball.pokeball(this.ctx, this.x + this.w - 50, this.y, 0, -POKEBALL_SPEED, SRC, ''));
             setTimeout(() => {

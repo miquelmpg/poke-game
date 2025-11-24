@@ -93,22 +93,37 @@ class Game {
 
     checkCollisions() {
         for (const pokemon of this.pokemons) {
-            if (this.trainer.collidesWith(pokemon) && 
-                !this.trainer.isInThouch && 
-                ((pokemon.typeOne === 'fire' || pokemon.typeOne === 'poison' || pokemon.typeOne === 'dragon') || 
-                (pokemon.typeTwo === 'fire' || pokemon.typeTwo === 'poison' || pokemon.typeTwo === 'dragon')) && 
-                !pokemon.hasHit) {
+            if (
+                this.trainer.collidesWith(pokemon) &&
+                !this.trainer.isInThouch &&
+                (
+                    pokemon.typeOne === 'fire' ||
+                    pokemon.typeOne === 'poison' ||
+                    pokemon.typeOne === 'dragon' ||
+                    pokemon.typeTwo === 'fire' ||
+                    pokemon.typeTwo === 'poison' ||pokemon.typeTwo === 'dragon'
+                ) && 
+                !pokemon.hasHit
+            ) {
                     this.lives.lives -= 1;
                     this.lives.sprite.hFrameIndex += 1;
                     pokemon.hasHit = true;
             } else {
                 this.trainer.isInThouch = false;
             }
-            if (this.trainer.collidesWith(pokemon) && 
+            if (
+                this.trainer.collidesWith(pokemon) && 
                 !this.trainer.isInThouch && 
-                ((pokemon.typeOne === 'water' || pokemon.typeOne === 'ice' || pokemon.typeOne === 'ground') || 
-                (pokemon.typeTwo === 'water' || pokemon.typeTwo === 'ice' || pokemon.typeTwo === 'ground')) && 
-                !pokemon.hasHit) {
+                (
+                    pokemon.typeOne === 'water' ||
+                    pokemon.typeOne === 'ice' ||
+                    pokemon.typeOne === 'ground' || 
+                    pokemon.typeTwo === 'water' ||
+                    pokemon.typeTwo === 'ice' ||
+                    pokemon.typeTwo === 'ground'
+                ) && 
+                !pokemon.hasHit
+            ) {
                 if (this.trainer.vx > 0) {
                     this.trainer.vx = this.trainer.vx += 10;
                     pokemon.hasHit = true;
@@ -127,9 +142,16 @@ class Game {
             }
             if (this.trainer.collidesWith(pokemon) && 
                 !this.trainer.isInThouch && 
-                ((pokemon.typeOne === 'grass' || pokemon.typeOne === 'normal' || pokemon.typeOne === 'fairy') || 
-                (pokemon.typeTwo === 'grass' || pokemon.typeTwo === 'normal' || pokemon.typeTwo === 'fairy')) && 
-                !pokemon.hasHit) {
+                (
+                    pokemon.typeOne === 'grass' ||
+                    pokemon.typeOne === 'normal' ||
+                    pokemon.typeOne === 'fairy' || 
+                    pokemon.typeTwo === 'grass' ||
+                    pokemon.typeTwo === 'normal' ||
+                    pokemon.typeTwo === 'fairy'
+                ) && 
+                !pokemon.hasHit
+            ) {
                 if (this.lives.lives === 5) {
                     this.lives.lives += 0;
                 } else {
@@ -141,17 +163,31 @@ class Game {
             }
             if (this.trainer.collidesWith(pokemon) && 
                 !this.trainer.isInThouch && 
-                ((pokemon.typeOne === 'electric' || pokemon.typeOne === 'dark' || pokemon.typeOne === 'ghost') || 
-                (pokemon.typeTwo === 'electric' || pokemon.typeTwo === 'dark' || pokemon.typeTwo === 'ghost')) && 
-                !pokemon.hasHit) {
+                (
+                    pokemon.typeOne === 'electric' ||
+                    pokemon.typeOne === 'dark' ||
+                    pokemon.typeOne === 'ghost' || 
+                    pokemon.typeTwo === 'electric' ||
+                    pokemon.typeTwo === 'dark' ||
+                    pokemon.typeTwo === 'ghost'
+                ) && 
+                !pokemon.hasHit
+            ) {
                 this.trainer.vx = 0;
                 this.trainer.vy = 0;
             } 
             if (this.trainer.collidesWith(pokemon) && 
                 !this.trainer.isInThouch && 
-                ((pokemon.typeOne === 'psychic' || pokemon.typeOne === 'fighting' || pokemon.typeOne === 'flying') || 
-                (pokemon.typeTwo === 'psychic' || pokemon.typeTwo === 'fighting' || pokemon.typeTwo === 'flying')) && 
-                !pokemon.hasHit) {
+                (
+                    pokemon.typeOne === 'psychic' ||
+                    pokemon.typeOne === 'fighting' ||
+                    pokemon.typeOne === 'flying' || 
+                    pokemon.typeTwo === 'psychic' ||
+                    pokemon.typeTwo === 'fighting' ||
+                    pokemon.typeTwo === 'flying'
+                ) && 
+                !pokemon.hasHit
+            ) {
                 POKEBALL_SPEED = POKEBALL_SPEED * -1;
                 setTimeout(() => POKEBALL_SPEED = POKEBALL_SPEED * -1, 5000);
                 pokemon.hasHit = true;
@@ -185,25 +221,34 @@ class Game {
         }
 
         for (const pokemon of this.pokemons) {
-            if (this.trainer.megaEvolve && this.trainer.collidesWith(pokemon)) {
-                this.trainer.canThrow = false;
-                pokemon.isDead = true;
-                this.addPoint();
-                this.addTypeOne(pokemon);
+            if (this.trainer.megaEvolve &&
+                this.trainer.collidesWith(pokemon)) {
+                    this.trainer.canThrow = false;
+                    pokemon.isDead = true;
+                    this.addPoint();
+                    this.addTypeOne(pokemon);
             }
         }
 
         for (const pokemon of this.pokemons) {
-            if (this.trainer.collidesWith(pokemon) && this.trainer.x < pokemon.x) {
+            if (this.trainer.collidesWith(pokemon) &&
+                this.trainer.x < pokemon.x
+            ) {
                 pokemon.x = pokemon.x - 1;
             }
-            if (this.trainer.collidesWith(pokemon) && this.trainer.x > pokemon.x) {
+            if (this.trainer.collidesWith(pokemon) &&
+                this.trainer.x > pokemon.x
+            ) {
                 pokemon.x = pokemon.x + 1;
             }
-            if (this.trainer.collidesWith(pokemon) && this.trainer.y > pokemon.y) {
+            if (this.trainer.collidesWith(pokemon) &&
+                this.trainer.y > pokemon.y
+            ) {
                 pokemon.y = pokemon.y + 1;
             }
-            if (this.trainer.collidesWith(pokemon) && this.trainer.y < pokemon.y) {
+            if (this.trainer.collidesWith(pokemon) &&
+                this.trainer.y < pokemon.y
+            ) {
                 pokemon.y = pokemon.y - 1;
             }
         }
@@ -211,79 +256,127 @@ class Game {
         for (const pokemon of this.pokemons) {
             for (const pokeball of this.trainer.pokeballs) {
                 if (pokeball.src === POKEBALL) {
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) &&
+                        (pokeball.y < pokemon.y)
+                    ) {
                         pokemon.y += POKEBALL_STRONG;
                         pokeball.isThrown = true;                    
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) && (pokeball.y + pokeball.h > pokemon.y + pokemon.h)){
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) &&
+                        (pokeball.y + pokeball.h > pokemon.y + pokemon.h)
+                    ) {
                         pokemon.y -= POKEBALL_STRONG;
                         pokeball.isThrown = true;
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x < pokemon.x + pokemon.w) && (pokeball.x > pokemon.x)) {
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.x < pokemon.x + pokemon.w) &&
+                        (pokeball.x > pokemon.x)
+                    ) {
                         pokemon.x -= POKEBALL_STRONG;
                         pokeball.isThrown = true;
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) && (pokeball.x < pokemon.x)) {
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) &&
+                        (pokeball.x < pokemon.x)
+                    ) {
                         pokemon.x += POKEBALL_STRONG;
                         pokeball.isThrown = true;
                     }
                 }
                 if (pokeball.src === SUPERBALL) {
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) &&
+                        (pokeball.y < pokemon.y)
+                    ) {
                         pokemon.y += SUPERBALL_STRONG;
                         pokeball.isThrown = true;                    
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) && (pokeball.y + pokeball.h > pokemon.y + pokemon.h)){
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) &&
+                        (pokeball.y + pokeball.h > pokemon.y + pokemon.h)
+                    ) {
                         pokemon.y -= SUPERBALL_STRONG;
                         pokeball.isThrown = true;
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x < pokemon.x + pokemon.w) && (pokeball.x > pokemon.x)) {
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.x < pokemon.x + pokemon.w) &&
+                        (pokeball.x > pokemon.x)
+                    ) {
                         pokemon.x -= SUPERBALL_STRONG;
                         pokeball.isThrown = true;
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) && (pokeball.x < pokemon.x)) {
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) &&
+                        (pokeball.x < pokemon.x)
+                    ) {
                         pokemon.x += SUPERBALL_STRONG;
                         pokeball.isThrown = true;
                     }
                 }
                 if (pokeball.src === ULTRABALL) {
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) &&
+                        (pokeball.y < pokemon.y)
+                    ) {
                         pokemon.y += ULTRABALL_STRONG;
                         pokeball.isThrown = true;                    
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) && (pokeball.y + pokeball.h > pokemon.y + pokemon.h)){
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) &&
+                        (pokeball.y + pokeball.h > pokemon.y + pokemon.h) 
+                    ) {
                         pokemon.y -= ULTRABALL_STRONG;
                         pokeball.isThrown = true;
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x < pokemon.x + pokemon.w) && (pokeball.x > pokemon.x)) {
+                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown &&
+                        (pokeball.x < pokemon.x + pokemon.w) &&
+                        (pokeball.x > pokemon.x)
+                    ) {
                         pokemon.x -= ULTRABALL_STRONG;
                         pokeball.isThrown = true;
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) && (pokeball.x < pokemon.x)) {
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) &&
+                        (pokeball.x < pokemon.x)
+                    ) {
                         pokemon.x += ULTRABALL_STRONG;
                         pokeball.isThrown = true;
                     }
                 }
                 if (pokeball.src === MASTERBALL) {
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) && (pokeball.y < pokemon.y)){
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.y + pokeball.h >= pokemon.y) &&
+                        (pokeball.y < pokemon.y)
+                    ) {
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
                         this.addPoint();
                         this.addTypeOne(pokemon);
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) && (pokeball.y + pokeball.h > pokemon.y + pokemon.h)){
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.y < pokemon.y + pokemon.h) &&
+                        (pokeball.y + pokeball.h > pokemon.y + pokemon.h)
+                    ) {
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
                         this.addPoint();
                         this.addTypeOne(pokemon);
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x < pokemon.x + pokemon.w) && (pokeball.x > pokemon.x)) {
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.x < pokemon.x + pokemon.w) &&
+                        (pokeball.x > pokemon.x)
+                    ) {
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
                         this.addPoint();
                         this.addTypeOne(pokemon);
                     }
-                    if (pokeball.collidesWith(pokemon) && !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) && (pokeball.x < pokemon.x)) {
+                    if (pokeball.collidesWith(pokemon) &&
+                        !pokeball.isThrown && (pokeball.x + pokeball.w > pokemon.x) &&
+                        (pokeball.x < pokemon.x)
+                    ) {
                         pokemon.isDead = true;
                         pokeball.isThrown = true;
                         this.addPoint();
@@ -294,29 +387,49 @@ class Game {
         }
 
         for (const pokemon of this.pokemons) {
-            if (pokemon.collidesWith(this.fenceLeft) || pokemon.collidesWith(this.fenceRight)) {
+            if (pokemon.collidesWith(this.fenceLeft) ||
+                pokemon.collidesWith(this.fenceRight)
+            ) {
                 pokemon.y = pokemon.y - (this.fenceLeft.h - 20);
                 pokemon.y = pokemon.y - (this.fenceRight.h - 20);
             }
         }
 
-        if (this.trainer.collidesWith(this.fenceLeft) && (this.trainer.y + this.trainer.h >= this.fenceLeft.y) && (this.trainer.y < this.fenceLeft.y)) {
+        if (this.trainer.collidesWith(this.fenceLeft) &&
+            (this.trainer.y + this.trainer.h >= this.fenceLeft.y) &&
+            (this.trainer.y < this.fenceLeft.y)
+        ) {
             this.trainer.y = this.fenceLeft.y -this.trainer.h;
         }
-        if (this.trainer.collidesWith(this.fenceLeft) && (this.trainer.y < this.fenceLeft.y + this.fenceLeft.h) && (this.trainer.y + this.trainer.h > this.fenceLeft.y + this.fenceLeft.h)) {
+        if (this.trainer.collidesWith(this.fenceLeft) &&
+            (this.trainer.y < this.fenceLeft.y + this.fenceLeft.h) &&
+            (this.trainer.y + this.trainer.h > this.fenceLeft.y + this.fenceLeft.h)
+        ) {
             this.trainer.y = this.fenceLeft.y + this.fenceLeft.h;
         }
-        if (this.trainer.collidesWith(this.fenceLeft) && (this.trainer.x < this.fenceLeft.x + this.fenceLeft.w) && (this.trainer.x > this.fenceLeft.x)) {   
+        if (this.trainer.collidesWith(this.fenceLeft) &&
+            (this.trainer.x < this.fenceLeft.x + this.fenceLeft.w) &&
+            (this.trainer.x > this.fenceLeft.x)
+        ) {   
             this.trainer.x = this.fenceLeft.x + this.fenceLeft.w;
         }
 
-        if (this.trainer.collidesWith(this.fenceRight) && (this.trainer.y + this.trainer.h >= this.fenceRight.y) && (this.trainer.y < this.fenceRight.y)) {
+        if (this.trainer.collidesWith(this.fenceRight) &&
+            (this.trainer.y + this.trainer.h >= this.fenceRight.y) &&
+            (this.trainer.y < this.fenceRight.y)
+        ) {
             this.trainer.y = this.fenceRight.y - this.trainer.h;
         }
-        if (this.trainer.collidesWith(this.fenceRight) && (this.trainer.y < this.fenceRight.y + this.fenceRight.h) && (this.trainer.y + this.trainer.h > this.fenceRight.y + this.fenceRight.h)) {
+        if (this.trainer.collidesWith(this.fenceRight) &&
+            (this.trainer.y < this.fenceRight.y + this.fenceRight.h) &&
+            (this.trainer.y + this.trainer.h > this.fenceRight.y + this.fenceRight.h)
+        ) {
             this.trainer.y = this.fenceRight.y + this.fenceRight.h;
         }
-        if (this.trainer.collidesWith(this.fenceRight) && (this.trainer.x + this.trainer.w > this.fenceRight.x) && (this.trainer.x < this.fenceRight.x)) {   
+        if (this.trainer.collidesWith(this.fenceRight) &&
+            (this.trainer.x + this.trainer.w > this.fenceRight.x) &&
+            (this.trainer.x < this.fenceRight.x)
+        ) {   
             this.trainer.x = this.fenceRight.x - this.trainer.w;
         }
 
@@ -327,12 +440,18 @@ class Game {
         let isShown = false;
         
         const egg = document.querySelector('.egg');
-        if (this.trainer.collidesWith(this.easterEgg) && this.trainer.sprite.hFrameIndex === 3 && egg.classList.contains('hidden') && (!isShown)) {
+        if (this.trainer.collidesWith(this.easterEgg) &&
+            this.trainer.sprite.hFrameIndex === 3 &&
+            egg.classList.contains('hidden') &&
+            (!isShown)
+        ) {
             setTimeout(() => {egg.classList.remove('hidden');
             egg.classList.add('visible');
             isShown = true;
             }, 2000);
-        } else if (!this.trainer.collidesWith(this.easterEgg) && !isShown) {
+        } else if (!this.trainer.collidesWith(this.easterEgg) &&
+            !isShown
+        ) {
             egg.classList.add('hidden');
             egg.classList.remove('visible');
             isShown = false;
@@ -365,9 +484,13 @@ class Game {
         
         if (randomNumber < 0.25) {
             this.balls.push(Pokeball.pokeball(this.ctx, xRandomNumberGround, yRandomNumberGround, 0, 0, '', STATIC_MASTERBALL));
-        } else if (randomNumber > 0.25 && randomNumber < 0.4) {
+        } else if (randomNumber > 0.25 &&
+            randomNumber < 0.4
+        ) {
             this.balls.push(Pokeball.pokeball(this.ctx, xRandomNumberGround, yRandomNumberGround, 0, 0, '', STATIC_ULTRABALL));
-        } else if (randomNumber > 0.4 && randomNumber < 0.85) {
+        } else if (randomNumber > 0.4 &&
+            randomNumber < 0.85
+        ) {
             this.balls.push(Pokeball.pokeball(this.ctx, xRandomNumberGround, yRandomNumberGround, 0, 0, '', STATIC_SUPERBALL));
         } else {
             this.balls.push(Pokeball.pokeball(this.ctx, xRandomNumberGround, yRandomNumberGround, 0, 0, '', STATIC_MEGA_STONE));
@@ -402,7 +525,9 @@ class Game {
         }
         if (pokemon.typeTwo) {
             typeTwoClass = document.querySelector(`.${pokemon.typeTwo}`);
-            if (typeTwoClass && typeTwoClass.classList.contains('hidden')) {
+            if (typeTwoClass &&
+                typeTwoClass.classList.contains('hidden')
+            ) {
                 typeTwoClass.classList.remove('hidden');
                 typeTwoClass.classList.add('visible');
             }
