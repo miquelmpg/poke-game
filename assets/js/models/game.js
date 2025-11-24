@@ -93,104 +93,133 @@ class Game {
 
     checkCollisions() {
         for (const pokemon of this.pokemons) {
-            if (
-                this.trainer.collidesWith(pokemon) &&
-                !this.trainer.isInThouch &&
-                (
-                    pokemon.typeOne === 'fire' ||
-                    pokemon.typeOne === 'poison' ||
-                    pokemon.typeOne === 'dragon' ||
-                    pokemon.typeTwo === 'fire' ||
-                    pokemon.typeTwo === 'poison' ||pokemon.typeTwo === 'dragon'
-                ) && 
-                !pokemon.hasHit
-            ) {
-                    this.lives.lives -= 1;
-                    this.lives.sprite.hFrameIndex += 1;
-                    pokemon.hasHit = true;
-            } else {
-                this.trainer.isInThouch = false;
-            }
-            if (
-                this.trainer.collidesWith(pokemon) && 
-                !this.trainer.isInThouch && 
-                (
-                    pokemon.typeOne === 'water' ||
-                    pokemon.typeOne === 'ice' ||
-                    pokemon.typeOne === 'ground' || 
-                    pokemon.typeTwo === 'water' ||
-                    pokemon.typeTwo === 'ice' ||
-                    pokemon.typeTwo === 'ground'
-                ) && 
-                !pokemon.hasHit
-            ) {
-                if (this.trainer.vx > 0) {
-                    this.trainer.vx = this.trainer.vx += 10;
-                    pokemon.hasHit = true;
-                } else if (this.trainer.vx < 0) {
-                    this.trainer.vx = this.trainer.vx -= 10;
-                    pokemon.hasHit = true;
-                } else if (this.trainer.vy > 0) {
-                    this.trainer.vy = this.trainer.vy += 10;
-                    pokemon.hasHit = true;
-                } else if (this.trainer.vy < 0) {
-                    this.trainer.vy = this.trainer.vy -= 10;
-                    pokemon.hasHit = true;
-                }
-            } else {
-                this.trainer.isInThouch = false;
-            }
             if (this.trainer.collidesWith(pokemon) && 
                 !this.trainer.isInThouch && 
-                (
-                    pokemon.typeOne === 'grass' ||
-                    pokemon.typeOne === 'normal' ||
-                    pokemon.typeOne === 'fairy' || 
-                    pokemon.typeTwo === 'grass' ||
-                    pokemon.typeTwo === 'normal' ||
-                    pokemon.typeTwo === 'fairy'
-                ) && 
-                !pokemon.hasHit
-            ) {
-                if (this.lives.lives === 5) {
-                    this.lives.lives += 0;
-                } else {
-                    this.lives.lives += 1;
-                    this.lives.sprite.hFrameIndex -= 1;
-                    this.trainer.isInThouch = false;
-                    pokemon.hasHit = true;
-                }
-            }
-            if (this.trainer.collidesWith(pokemon) && 
-                !this.trainer.isInThouch && 
-                (
-                    pokemon.typeOne === 'electric' ||
-                    pokemon.typeOne === 'dark' ||
-                    pokemon.typeOne === 'ghost' || 
-                    pokemon.typeTwo === 'electric' ||
-                    pokemon.typeTwo === 'dark' ||
-                    pokemon.typeTwo === 'ghost'
-                ) && 
-                !pokemon.hasHit
-            ) {
-                this.trainer.vx = 0;
-                this.trainer.vy = 0;
-            } 
-            if (this.trainer.collidesWith(pokemon) && 
-                !this.trainer.isInThouch && 
-                (
-                    pokemon.typeOne === 'psychic' ||
-                    pokemon.typeOne === 'fighting' ||
-                    pokemon.typeOne === 'flying' || 
-                    pokemon.typeTwo === 'psychic' ||
-                    pokemon.typeTwo === 'fighting' ||
-                    pokemon.typeTwo === 'flying'
-                ) && 
-                !pokemon.hasHit
-            ) {
-                POKEBALL_SPEED = POKEBALL_SPEED * -1;
-                setTimeout(() => POKEBALL_SPEED = POKEBALL_SPEED * -1, 5000);
-                pokemon.hasHit = true;
+                !pokemon.hasHit) {
+                    if (pokemon.typeOne === 'fire' || 
+                        pokemon.typeTwo === 'fire'
+                    ) {
+                        this.lives.lives -= 1;
+                        this.lives.sprite.hFrameIndex += 1;
+                        pokemon.hasHit = true;
+                    }
+                    if (pokemon.typeOne === 'poison' || 
+                        pokemon.typeTwo === 'poison'
+                    ) {
+                        this.lives.lives -= 1;
+                        this.lives.sprite.hFrameIndex += 1;
+                        pokemon.hasHit = true;
+                    }
+                    if (pokemon.typeOne === 'dragon' || 
+                        pokemon.typeTwo === 'dragon'
+                    ) {
+                        this.lives.lives -= 1;
+                        this.lives.sprite.hFrameIndex += 1;
+                        pokemon.hasHit = true;
+                    }
+                    if (pokemon.typeOne === 'water' || 
+                        pokemon.typeTwo === 'water') {
+                        if (this.trainer.vx > 0
+
+                        ) {
+                            this.trainer.vx += 10;
+                        } else if (this.trainer.vx < 0) {
+                            this.trainer.vx -= 10;
+                        } else if (this.trainer.vy > 0) {
+                            this.trainer.vy += 10;
+                        } else if (this.trainer.vy < 0) {
+                            this.trainer.vy -= 10;
+                        }
+                    }
+                    if (pokemon.typeOne === 'ice' || 
+                        pokemon.typeTwo === 'ice'
+                    ) {
+                        if (this.trainer.vx > 0) {
+                            this.trainer.vx += 10;
+                        } else if (this.trainer.vx < 0) {
+                            this.trainer.vx -= 10;
+                        } else if (this.trainer.vy > 0) {
+                            this.trainer.vy += 10;
+                        } else if (this.trainer.vy < 0) {
+                            this.trainer.vy -= 10;
+                        }
+                    }
+                    if (pokemon.typeOne === 'ground' || 
+                        pokemon.typeTwo === 'ground'
+                    ) {
+                        if (this.trainer.vx > 0) {
+                            this.trainer.vx += 10;
+                        } else if (this.trainer.vx < 0) {
+                            this.trainer.vx -= 10;
+                        } else if (this.trainer.vy > 0) {
+                            this.trainer.vy += 10;
+                        } else if (this.trainer.vy < 0) {
+                            this.trainer.vy -= 10;
+                        }
+                    }
+                    if (pokemon.typeOne === 'grass' || 
+                        pokemon.typeTwo === 'grass'
+                    ) {
+                        if (this.lives.lives < 5) {
+                            this.lives.lives += 1;
+                            this.lives.sprite.hFrameIndex -= 1;
+                            pokemon.hasHit = true;
+                        }
+                    }
+                    if (pokemon.typeOne === 'normal' || 
+                        pokemon.typeTwo === 'normal'
+                    ) {
+                        if (this.lives.lives < 5) {
+                            this.lives.lives += 1;
+                            this.lives.sprite.hFrameIndex -= 1;
+                            pokemon.hasHit = true;
+                        }
+                    }
+                    if (pokemon.typeOne === 'fairy' ||
+                        pokemon.typeTwo === 'fairy'
+                    ) {
+                        if (this.lives.lives < 5) {
+                            this.lives.lives += 1;
+                            this.lives.sprite.hFrameIndex -= 1;
+                            pokemon.hasHit = true;
+                        }
+                    }
+                    if (pokemon.typeOne === 'electric' ||
+                        pokemon.typeTwo === 'electric'
+                    ) {
+                        this.trainer.vx = 0;
+                        this.trainer.vy = 0;
+                    }
+                    if (pokemon.typeOne === 'dark' ||
+                        pokemon.typeTwo === 'dark'
+                    ) {
+                        this.trainer.vx = 0;
+                        this.trainer.vy = 0;
+                    }
+                    if (pokemon.typeOne === 'ghost' ||
+                        pokemon.typeTwo === 'ghost'
+                    ) {
+                        this.trainer.vx = 0;
+                        this.trainer.vy = 0;
+                    }
+                    if (pokemon.typeOne === 'psychic' || 
+                        pokemon.typeTwo === 'psychic'
+                    ) {
+                        POKEBALL_SPEED *= -1;
+                        setTimeout(() => POKEBALL_SPEED *= -1, 5000);
+                    }
+                    if (pokemon.typeOne === 'fighting' ||
+                        pokemon.typeTwo === 'fighting'
+                    ) {
+                        POKEBALL_SPEED *= -1;
+                        setTimeout(() => POKEBALL_SPEED *= -1, 5000);
+                    }
+                    if (pokemon.typeOne === 'flying' ||
+                        pokemon.typeTwo === 'flying'
+                    ) {
+                        POKEBALL_SPEED *= -1;
+                        setTimeout(() => POKEBALL_SPEED *= -1, 5000);
+                    }
             }
         }
 
